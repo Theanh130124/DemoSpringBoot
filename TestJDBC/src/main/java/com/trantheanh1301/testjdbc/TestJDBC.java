@@ -3,6 +3,7 @@
  */
 package com.trantheanh1301.testjdbc;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -10,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.sql.Types;
 
 /**
  *
@@ -49,12 +51,38 @@ public class TestJDBC {
             //Dùng PerparedStatement -> khi cần truyền đối số và đối số truyền vào phải là ? ( cực kỳ lưu ý) -> không là bị SQL Injection
             //không cần createStatement như Statement -> gắn thằng vào conn luôn
             PreparedStatement pstm = conn.prepareStatement("INSERT INTO receipt(create_date,user_id) VALUES(?,?)",ResultSet.TYPE_SCROLL_INSENSITIVE); // không cần truyền id  - cho tiến hoặc lùi và nhạy cảm
-            //Thêm đối số vào thì cần setString , hoặc set trường nào thì set đó
+            //Truyen vao ? vào thì cần setString , hoặc set trường nào thì set đó
             pstm.setTimestamp(1, Timestamp.valueOf("2024-11-18 01:38:27")); //vị trí bắt đầu luôn từ 1 -> giống resultset
             pstm.setInt(2, 2);
             int res = pstm.executeUpdate(); // số dòng bị ảnh hưởng còn nếu executeQuery() thì phải duyệt như trên
             System.out.println(res); //1 dòng  
             
+            
+            
+            //Goi CallableStatement
+            CallableStatement cst = conn.prepareCall("{call countCate(?) }");
+//            Truyen vao ?  // do minh truyen OUT nen có registerOutParameter
+            cst.registerOutParameter(1, Types.INTEGER); // Types đúng với out trả ra -> chỉ có 1 out nên để 1 ở vị trí số 1 
+            cst.execute();
+            System.out.println("Số lượng danh mục"+cst.getInt(1)); // truyền 2 cái out thì lấy thêm 1 cái ở vị trí số 2 
+            
+            
+            CallableStatement cst2 = conn.prepareCall("{call countProbyCate(?,?) }");// truyền vào id và out ra count int
+            cst2.setInt(1, 2);// truyền id cateID :2
+            cst2.registerOutParameter(2, Types.INTEGER);
+            cst2.execute();
+            System.out.println("Danh mục" +cst2.getInt(2)+ "sản phẩm");
+            
+            
+            //Nếu trả ra cussor in ra như trên
+            CallableStatement cst3 = conn.prepareCall("{call getCateById(?)}"); // truyền IN
+            cst3.setInt(1,2);
+            ResultSet res2 = cst3.executeQuery();
+            while(res2.next()){
+                int id = res2.getInt("id");  // tên như id và name phải đúng với tên bảng nha
+                String name = res2.getString("name");
+                System.out.printf("%d-%s",id,name);
+            }
             
             
         }
