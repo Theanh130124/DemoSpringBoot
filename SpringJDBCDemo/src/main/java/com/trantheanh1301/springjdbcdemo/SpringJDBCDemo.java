@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.Scanner;
 
 
 /**
@@ -19,6 +20,9 @@ import java.sql.Types;
 public class SpringJDBCDemo {
 
     public static void main(String[] args) throws SQLException {
+        
+        
+        Scanner sc = new Scanner(System.in);
         
         
         //Dùng Spring JDBC thay vì JDBC  vì giảm tải các câu lệnh ( ví dụ như các câu lệnh kết nối hoặc đóng kết nối , hỗ trợ xử lý ngoại lệ ) 
@@ -50,7 +54,27 @@ public class SpringJDBCDemo {
                 
 
 //List nên mình phải in ra
-                QuestionServices.getQuestion().forEach(v->System.out.println(v.getContent())); //trả ra là đối tượng có thể toString hoặc là getContent -> dùngGetter
+
+   //getQuestion truyền 2 để chỉ lấy 2 câu
+                QuestionServices.getQuestion(2).forEach(v->{
+                    System.out.println(v.getContent());
+                    for ( int i = 0 ; i < v.getChoices().size() ; i++)
+                    {
+                        System.out.printf("%d-%s\n",i+1,v.getChoices().get(i).getContent()); //get(i) để lấy từng đối tượng / 
+                    }
+                    
+                       System.out.println("Lua chon cua ban la :");
+                
+                int index = sc.nextInt();
+                if(v.getChoices().get(index-1).isCorrect()==true){
+                    System.out.println("BAN TRA LOI DUNG !!!");
+                    
+                }
+                else {
+                    System.out.println("BAN TRA LOI SAI !!!");
+                }
+                }); //trả ra là đối tượng có thể toString hoặc là getContent -> dùngGetter
+             
                 
         }
     
