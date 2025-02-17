@@ -54,9 +54,9 @@ public class QuestionServices {
             c.setId(rs.getString("id"));
             c.setContent(rs.getString("content"));
             c.setCorrect(rs.getBoolean("is_correct"));
-            c.setQuestion_id(question_id); // chổ này cho ngta điền nên không gán rs vào
+            c.setQuestion_id(question_id);                                                                                      // chổ này cho ngta điền nên không gán rs vào
             return c;
-        }, question_id );//question_id sẽ tự là ? 
+        }, question_id );                                                                                              //question_id sẽ tự là ? 
     
     
 }

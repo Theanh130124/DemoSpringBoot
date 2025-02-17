@@ -12,9 +12,11 @@ import lombok.Setter;
  * @author LAPTOP
  */
 
+
 @Getter
 @Setter
 public class Category {
     private String id;
     private String name;
+    private String description;
 }

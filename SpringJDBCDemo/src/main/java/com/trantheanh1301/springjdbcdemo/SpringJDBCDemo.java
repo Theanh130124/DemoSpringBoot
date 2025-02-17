@@ -66,6 +66,7 @@ public class SpringJDBCDemo {
                        System.out.println("Lua chon cua ban la :");
                 
                 int index = sc.nextInt();
+                
                 if(v.getChoices().get(index-1).isCorrect()==true){
                     System.out.println("BAN TRA LOI DUNG !!!");
                     
