@@ -26,44 +26,44 @@ public class hibernateTester {
         
         Session session = hibernationUtils.getFACTORY().openSession(); // đầy là mình gọi getFactory -> thì đây là lần đầu nó tạo và chỉ tạo duy nhât lần nầy
         
-//        Category c = new Category(); // (((transient))) -> khi tạo mới đối tượng nó chưa liên kết với dòng nào dưới CSDL
-//        c.setName("IPHONE 16");
-//        c.setDescription("TEST HIBERNATE");
-//        session.save(c);
+        Category c = new Category(); // (((transient))) -> khi tạo mới đối tượng nó chưa liên kết với dòng nào dưới CSDL
+        c.setName("IPHONE 16");
+        c.setDescription("TEST HIBERNATE");
+        session.save(c);
 
 
 
 
-//
-//           //cập nhật lại
-//           Category c = session.get(Category.class, 13); // ((persistent))(đã liên kết với 1 dòng
-//           //dưới CSDL -> lúc này lấy lên có câu truy vấn SELECT * ....  (truyền class pojo  ,id )
-//           c.setDescription("DU LIEU DA DUOC CAP NHAT LAI");
-//           
-//           session.getTransaction().begin();//bật giao tác
-//           session.save(c); // ở đây thêm 1 câu truy vấn update -> Lưu đệm vẫn chưa lưu xuong -> nào có lện UPDATE table set mới thức sự lưu
-//           session.getTransaction().commit();// Thực hiện lưu xuống CSDL
-//        
-//           //Xóa cũng cần transcion (giao tác)
-//           Category c3 = session.get(Category.class, 13); //SELECT ....
-//        
-//           c.setDescription("DU LIEU DA DUOC CAP NHAT LAI");
-//           
-//           session.getTransaction().begin();
-//           session.delete(c3); 
-//           session.getTransaction().commit(); //DELETE .... 
-//           
+
+           //cập nhật lại
+           Category c1 = session.get(Category.class, 13); // ((persistent))(đã liên kết với 1 dòng
+           //dưới CSDL -> lúc này lấy lên có câu truy vấn SELECT * ....  (truyền class pojo  ,id )
+           c.setDescription("DU LIEU DA DUOC CAP NHAT LAI");
+           
+           session.getTransaction().begin();//bật giao tác
+           session.save(c1); // ở đây thêm 1 câu truy vấn update -> Lưu đệm vẫn chưa lưu xuong -> nào có lện UPDATE table set mới thức sự lưu
+           session.getTransaction().commit();// Thực hiện lưu xuống CSDL
+        
+           //Xóa cũng cần transcion (giao tác)
+           Category c3 = session.get(Category.class, 13); //SELECT ....
+        
+           c.setDescription("DU LIEU DA DUOC CAP NHAT LAI");
+           
+           session.getTransaction().begin();
+           session.delete(c3); 
+           session.getTransaction().commit(); //DELETE .... 
            
            
            
            
-//           
-//           //HQL -> FROM Category -> Category là pojo (là đối tượng chứ không phải bảng) nhá (mình đã liên kết vs category dưới rồi)
-//           Query q = session.createQuery("FROM Category WHERE id = 1 ");
-//           List<Category> cates = q.getResultList();
-//           cates.forEach(v->System.out.printf("%d-%s\n",v.getId(),v.getName(),c.getDescription()));
-//           
-//           
+           
+           
+           //HQL -> FROM Category -> Category là pojo (là đối tượng chứ không phải bảng) nhá (mình đã liên kết vs category dưới rồi)
+           Query q = session.createQuery("FROM Category WHERE id = 1 ");
+           List<Category> cates = q.getResultList();
+           cates.forEach(v->System.out.printf("%d-%s\n",v.getId(),v.getName(),c.getDescription()));
+           
+           
            
         
 
@@ -72,17 +72,17 @@ public class hibernateTester {
 //Product
 
 //Thêm sản phẩm theo danh mục
-//        Product p  = new Product();
-//        p.setName("IPAD Pro 2025");//2 thằng này là notnull nên mình bắt buộc phải trueyenf vào
-//        p.setPrice(new BigDecimal(22000000));
-//        
-//        Category c = session.get(Category.class, 2); //lấy danh mục -> ở trạng thái persistent
-//        
-//        p.setCategory(c);
-//        session.save(p);
-//                
-//
-//        session.close();
+        Product p  = new Product();
+        p.setName("IPAD Pro 2025");//2 thằng này là notnull nên mình bắt buộc phải trueyenf vào
+        p.setPrice(new BigDecimal(22000000));
+        
+        Category c4 = session.get(Category.class, 2); //lấy danh mục -> ở trạng thái persistent
+        
+        p.setCategory(c4);
+        session.save(p);
+                
+
+        session.close();
 
 
 //Lấy Product lên nếu bên POJO là ERGER Thì nó không lười mỗi lần lấy product nó tự lấy thêm category của product đó
@@ -98,19 +98,19 @@ public class hibernateTester {
 //        c.getProducts().forEach(v->System.err.printf("%d-%s\n",v.getId(),v.getName())); // Chỉ kỉ đã mappeBy mới có được dòng get Products này 
    
     //Tạo Product và Thuộc nhiều tag cho ManyToMany -> Nhớ phải bật giao tác
-     Product p = new Product();
-     p.setName("IPHON15 PROMAX");
-     p.setPrice(new BigDecimal(30000000));
+     Product p1 = new Product();
+     p1.setName("IPHON15 PROMAX");
+     p1.setPrice(new BigDecimal(30000000));
      
-     Category c = session.get(Category.class, 1);//1 câu truy vấn
-     p.setCategory(c);
+     Category c5 = session.get(Category.class, 1);//1 câu truy vấn
+     p1.setCategory(c5);
      
      Set<Tag> tags = new HashSet<>(); //HashSet là mảng
      tags.add(session.get(Tag.class, 1)); //1 câu truy vấn
      tags.add(session.get(Tag.class, 2));//1 câu truy vấn
-     p.setTags(tags);// thêm vào Product
+     p1.setTags(tags);// thêm vào Product
      session.getTransaction().begin(); //3 câu insert
-     session.save(p);
+     session.save(p1);
      session.getTransaction().commit();
      
      
