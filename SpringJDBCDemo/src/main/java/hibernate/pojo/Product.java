@@ -48,7 +48,7 @@ public class Product implements Serializable{
     @Column(name="created_date")
     @Temporal(TemporalType.DATE) // Chỉ lưu ngày
     private Date createdDate;//không có gạch dưới
-    private boolean active;
+    private Boolean active;
     //Mặc định của ManyToOne là ERGER còn OneToMany là LAZY
     @ManyToOne(cascade = CascadeType.REMOVE)    //Cấu hình khóa ngoại -- Có fetch là EAGER thì nó tự LÊFT OUTER JOIN
     //còn muốn vẫn lấy cate -> thì cứ .getCategory()

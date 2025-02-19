@@ -36,7 +36,7 @@ public class User {
     private String phone ;
     private String username;
     private String password;
-    private boolean active;
+    private Boolean active;
     //Coi co de enum khong
     @Column(name="user_role")
     private String userRole;
