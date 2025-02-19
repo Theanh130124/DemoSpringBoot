@@ -6,7 +6,9 @@ package hibernationdemo;
 
 import hibernate.pojo.Category;
 import hibernate.pojo.Product;
+import hibernate.pojo.SaleOrder;
 import hibernate.pojo.Tag;
+import hibernate.pojo.User;
 import java.util.Properties;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistry;
@@ -50,6 +52,8 @@ public class hibernationUtils {
         conf.addAnnotatedClass(Category.class);
         conf.addAnnotatedClass(Product.class);
         conf.addAnnotatedClass(Tag.class);
+        conf.addAnnotatedClass(SaleOrder.class);
+        conf.addAnnotatedClass(User.class);
 
         ServiceRegistry registry = new StandardServiceRegistryBuilder()
                 .applySettings(conf.getProperties()) // Áp dụng cấu hình Hibernate
