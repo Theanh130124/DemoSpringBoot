@@ -54,15 +54,28 @@ public class SpringJDBCDemo {
 
 ///Test CALL getCountQuestionbycateName
 
-       CallableStatement stm = conn.prepareCall("{CALL getCountQuestionbycateName(?)}");
-       stm.setString(1, "Verb");
-       ResultSet res = stm.executeQuery();
-       while(res.next()){
-           System.out.printf("%d - %s -  So luong question : %d\n",res.getInt("id"),res.getString("name"),res.getInt("SL_Question"));
-       }
+//       CallableStatement stm = conn.prepareCall("{CALL getCountQuestionbycateName(?)}");
+//       stm.setString(1, "Verb");
+//       ResultSet res = stm.executeQuery();
+//       while(res.next()){
+//           System.out.printf("%d - %s -  So luong question : %d\n",res.getInt("id"),res.getString("name"),res.getInt("SL_Question"));
+//       }
+//
+//               }
 
-               }
-
+        
+ //Test CALL getChoiceWithQues voi Choice < 4 
+ 
+    CallableStatement stm = conn.prepareCall("{CALL getChoiceWithQues(?)}");
+    stm.setInt(1, 4); // truyen num la 4  -> de lay question < 4 
+    ResultSet res = stm.executeQuery();
+    while(res.next()){
+        System.out.printf("Id: %s  - Content: %s - Count_choice:%d",res.getString("id"),res.getString("content"),res.getInt("count_choice"));
+    }
+                    
+ 
+ 
+        
 
 
 
@@ -97,4 +110,5 @@ public class SpringJDBCDemo {
         }
     
     }
+}
 //}

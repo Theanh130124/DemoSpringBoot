@@ -183,6 +183,12 @@ public class hibernateTester {
         
         List <Object []> rs = q.getResultList();
         rs.forEach(k->System.out.printf("Name : %s - Count %d - Price %.2f\n",k[0],k[1],k[2]));
+        
+        
+        
+        
+        
+        
     
             
 //
