@@ -37,12 +37,12 @@ public class hibernationUtils {
 
         props.put(Environment.DIALECT,
                 "org.hibernate.dialect.MySQLDialect"); // Cho biết đang làm việc vs MySQl
-        props.put(Environment.DRIVER,
+        props.put(Environment.JAKARTA_JDBC_DRIVER,
                 "com.mysql.cj.jdbc.Driver");
-        props.put(Environment.URL,
+        props.put(Environment.JAKARTA_JDBC_URL,
                 "jdbc:mysql://localhost:3306/saledb");
-        props.put(Environment.USER, "root");
-        props.put(Environment.PASS, "123456");
+        props.put(Environment.JAKARTA_JDBC_USER, "root");
+        props.put(Environment.JAKARTA_JDBC_PASSWORD, "123456");
         props.put(Environment.SHOW_SQL, "true"); // bật này để tự show câu truy vấn nó sẽ thayas đc câu truy vấn 
         //Hibernate: insert into category (description,name) values (?,?)
 
