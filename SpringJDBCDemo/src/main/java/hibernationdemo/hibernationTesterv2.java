@@ -32,10 +32,10 @@ public class hibernationTesterv2 {
 //    u.setUserRole("ROLE_ADMIN");
 
 //Tim kiem SaleOder theo user 7 
-
-    User u = session.get(User.class, 7);
-    u.getSaleOders().forEach(v->System.err.printf("%d - %s\n",v.getId(),v.getCreateDate()));
-    
+//
+//    User u = session.get(User.class, 7);
+//    u.getSaleOders().forEach(v->System.err.printf("%d - %s\n",v.getId(),v.getCreateDate()));
+//    
         
     
     
